@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>Details</title>
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+    	tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  	});
+	</script>
+	{% load staticfiles %}
+	<script type="text/javascript" src="{{ STATIC_URL }}per/MathJax-2.4-latest/MathJax.js?config=TeX-AMS_HTML-full"></script>
+	</head>
+	<body>
+		<h1>{{ the_list.1.name }}</h1>
+		<ul>
+    		<li>${{ the_list.1.latex }}$</li>
+		</ul>
+		<h2>Relevant Symbols</h2>
+		{% if the_list.0 %}
+    		<ul>
+    		{% for obj in the_list.0 %}
+    			{% if obj.equation.id = the_list.1.id %}
+        			<li><a href="{% url 'symDetail' obj.symbol.id %}">${{ obj.symbol.symbol }}$</a></li>
+        		{% endif %}
+		    {% endfor %}
+    		</ul>
+		{% else %}
+    		<p>No equations are available.</p>
+		{% endif %}
+		<h3><a href="{% url 'index' %}">Main Index</a></h3>
+	</body>
+</html>
