@@ -5,7 +5,7 @@ from itertools import chain
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 
-from per.models import Symbol, Equation, SymbolEquation
+from per.models import Symbol, Equation, SymbolEquation, Exercise, Tag, Section, SectionEqn, SectionSym, TagLink, ExcEqn, ExcSym
 
 '''
 def index(request):
@@ -28,16 +28,12 @@ def equations(request):
     eqn_list = Equation.objects.order_by('id')
     context = {'eqn_list': eqn_list}
     return render(request, 'per/equations.html', context)
-'''
-def detail(request, per_id):
-	eqn = True
-	if eqn == True:
-		equation = get_object_or_404(Equation, pk=per_id)
-		return render(request, 'per/eqnDetail.html', {'equation': equation})
-	else:
-		symbol = get_object_or_404(Symbol, pk=per_id)
-		return render(request, 'per/symDetail.html', {'symbol': symbol})
-'''	
+
+def sections(request):
+    sec_list = Section.objects.order_by('ch_num')
+    context = {'sec_list': sec_list}
+    return render(request, 'per/sections.html', context)
+
 def symDetail(request, per_id):
 	symbol = get_object_or_404(Symbol, pk=per_id)
 	link_list = SymbolEquation.objects.order_by('id')
@@ -51,3 +47,10 @@ def eqnDetail(request, per_id):
 	the_list = [link_list, equation]
 	context = {'the_list' : the_list}
 	return render(request, 'per/eqnDetail.html', context)
+
+def secDetail(request, per_id):
+	section = get_object_or_404(Section, pk=per_id)
+	eqn_list = SectionEqn.objects.order_by('id')
+	the_list = [eqn_list, section]
+	context = {'the_list' : the_list}
+	return render(request, 'per/secDetail.html', context)

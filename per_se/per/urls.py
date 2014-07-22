@@ -6,6 +6,8 @@ urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
     url(r'^symbols/$', views.symbols, name='symbols'),
     url(r'^equations/$', views.equations, name='equations'),
+    url(r'^sections/$', views.sections, name='section'),
     url(r'^symbols/(?P<per_id>\d+)/$', views.symDetail, name='symDetail'),
     url(r'^equations/(?P<per_id>\d+)/$', views.eqnDetail, name='eqnDetail'),
+    url(r'^sections/(?P<per_id>\d+)/$', views.secDetail, name='secDetail'),
 )
