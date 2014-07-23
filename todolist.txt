@@ -1,38 +1,5 @@
 ch 16 symbols and equation table
 
+Distinguish variable types in exercises
 
-Section
--id
--name
--chapter num
-
-Exercises
--exercise text
--section foreignkey
--charfield for image path
--Boolean conceptual? default false
-
-Tags
--id
--name
-
-SectionEqn
--section fk
--eqn fk
-
-SectionSym
--section fk
--symbol fk
-
-TagLink
--Tag foreignkey
--Exercise foreignkey
-
-ExEqnLink
--exercise foreignkey
--eqn foreignkey
-
-ExSymbolLink
--exercise fk
--symbol fk
--given/hidden/solve
+section deletion broken

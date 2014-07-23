@@ -11,8 +11,9 @@ class SymbolAdmin(admin.ModelAdmin):
 	fieldsets = [
 		(None,  {'fields': ['symbol']}),
 		('Symbol name', {'fields': ['name']}),
+		('Constant', {'fields': ['constant']}),
 	]
-	list_display = ( 'symbol', 'name' )
+	list_display = ( 'symbol', 'name' ,'constant')
 	list_filter = ['name']
 	search_fields = ['name']
 

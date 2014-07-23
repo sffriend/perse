@@ -5,7 +5,7 @@ from itertools import chain
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 
-from per.models import Symbol, Equation, SymbolEquation, Exercise, Tag, Section, SectionEqn, SectionSym, TagLink, ExcEqn, ExcSym
+from per.models import Symbol, Equation, SymbolEquation, Exercise, Tag, Section, SectionEqn, SectionSym, TagLink, ExcEqn, ExcSym, SectionExc
 
 '''
 def index(request):
@@ -20,12 +20,12 @@ def index(request):
 	return render(request, 'per/index.html')
 	
 def symbols(request):
-    symbol_list = Symbol.objects.order_by('id')
+    symbol_list = Symbol.objects.order_by('name')
     context = {'symbol_list': symbol_list}
     return render(request, 'per/symbols.html', context)
 	
 def equations(request):
-    eqn_list = Equation.objects.order_by('id')
+    eqn_list = Equation.objects.order_by('name')
     context = {'eqn_list': eqn_list}
     return render(request, 'per/equations.html', context)
 
@@ -33,6 +33,11 @@ def sections(request):
     sec_list = Section.objects.order_by('ch_num')
     context = {'sec_list': sec_list}
     return render(request, 'per/sections.html', context)
+
+def exercises(request):
+    exc_list = Exercise.objects.order_by('id')
+    context = {'exc_list': exc_list}
+    return render(request, 'per/exercises.html', context)
 
 def symDetail(request, per_id):
 	symbol = get_object_or_404(Symbol, pk=per_id)
@@ -51,6 +56,15 @@ def eqnDetail(request, per_id):
 def secDetail(request, per_id):
 	section = get_object_or_404(Section, pk=per_id)
 	eqn_list = SectionEqn.objects.order_by('id')
-	the_list = [eqn_list, section]
+	exc_list = Exercise.objects.order_by('name')
+	the_list = [eqn_list, section, exc_list]
 	context = {'the_list' : the_list}
 	return render(request, 'per/secDetail.html', context)
+
+def excDetail(request, per_id):
+	exc = get_object_or_404(Exercise, pk=per_id)
+	link_list = ExcEqn.objects.order_by('id')
+	symbols = ExcSym.objects.order_by('id')
+	the_list = [link_list, exc, symbols]
+	context = {'the_list' : the_list}
+	return render(request, 'per/excDetail.html', context)
