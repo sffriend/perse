@@ -25,17 +25,47 @@
 		{% else %}
     		<p>No equations are available.</p>
 		{% endif %}
-		<h2>Relevant Symbols</h2>
+		<h2>Given Symbols</h2>
 		{% if the_list.2 %}
     		<ul>
     		{% for obj in the_list.2 %}
     			{% if obj.exc.id = the_list.1.id %}
-        			<li><a href="{% url 'symDetail' obj.symbol.id %}">${{ obj.symbol.symbol }}$</a></li>
+    				{% if obj.type = 0 %}
+        				<li><a href="{% url 'symDetail' obj.symbol.id %}">${{ obj.symbol.symbol }}$</a></li>
+    				{% endif %}
         		{% endif %}
 		    {% endfor %}
     		</ul>
 		{% else %}
-    		<p>No equations are available.</p>
+    		<p>No symbols are given</p>
+		{% endif %}
+		<h2>Hidden Symbols</h2>
+		{% if the_list.2 %}
+    		<ul>
+    		{% for obj in the_list.2 %}
+    			{% if obj.exc.id = the_list.1.id %}
+    				{% if obj.type = 1 %}
+        				<li><a href="{% url 'symDetail' obj.symbol.id %}">${{ obj.symbol.symbol }}$</a></li>
+    				{% endif %}
+        		{% endif %}
+		    {% endfor %}
+    		</ul>
+		{% else %}
+    		<p>No symbols are hidden</p>
+		{% endif %}
+		<h2>Find Symbols</h2>
+		{% if the_list.2 %}
+    		<ul>
+    		{% for obj in the_list.2 %}
+    			{% if obj.exc.id = the_list.1.id %}
+    				{% if obj.type = 2 %}
+        				<li><a href="{% url 'symDetail' obj.symbol.id %}">${{ obj.symbol.symbol }}$</a></li>
+    				{% endif %}
+        		{% endif %}
+		    {% endfor %}
+    		</ul>
+		{% else %}
+    		<p>No symbols are asked for</p>
 		{% endif %}
 		[<a href="{% url 'index' %}">Main Index</a>]
 	</body>

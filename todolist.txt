@@ -1,5 +1,3 @@
 ch 16 symbols and equation table
 
-Distinguish variable types in exercises
-
 section deletion broken

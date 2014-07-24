@@ -8,7 +8,7 @@ class Symbol(models.Model):
     class Meta:
     	ordering = ('name',)
     def __unicode__(self):
-    	return self.name
+    	return self.name + " : " + self.symbol
 
 class Equation(models.Model):
     latex = models.CharField(max_length=500)
