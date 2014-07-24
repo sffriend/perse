@@ -31,6 +31,7 @@ class Exercise(models.Model):
 	text = models.TextField()
 	img = models.CharField(max_length = 100)
 	title = models.CharField(max_length = 100)
+	conceptual = models.BooleanField(default = False)
 	class Meta:
 		ordering = ('title',)
 	def __unicode__(self):
