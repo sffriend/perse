@@ -49,14 +49,15 @@ def symDetail(request, per_id):
 def eqnDetail(request, per_id):
 	equation = get_object_or_404(Equation, pk=per_id)
 	link_list = SymbolEquation.objects.order_by('id')
-	the_list = [link_list, equation]
+	exclist = ExcEqn.objects.order_by('id')
+	the_list = [link_list, equation, exclist]
 	context = {'the_list' : the_list}
 	return render(request, 'per/eqnDetail.html', context)
 
 def secDetail(request, per_id):
 	section = get_object_or_404(Section, pk=per_id)
 	eqn_list = SectionEqn.objects.order_by('id')
-	exc_list = Exercise.objects.order_by('name')
+	exc_list = Exercise.objects.order_by('title')
 	the_list = [eqn_list, section, exc_list]
 	context = {'the_list' : the_list}
 	return render(request, 'per/secDetail.html', context)

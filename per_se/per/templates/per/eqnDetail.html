@@ -27,6 +27,18 @@
 		{% else %}
     		<p>No equations are available.</p>
 		{% endif %}
+		<h2>Relevant Exercises</h2>
+		{% if the_list.2 %}
+    		<ul>
+    		{% for obj in the_list.2 %}
+    			{% if obj.eqn.id = the_list.1.id %}
+        			<li><a href="{% url 'excDetail' obj.exc.id %}">${{ obj.exc.title }}$</a></li>
+        		{% endif %}
+		    {% endfor %}
+    		</ul>
+		{% else %}
+    		<p>No equations are available.</p>
+		{% endif %}
 		[<a href="{% url 'index' %}">Main Index</a>]
 	</body>
 </html>
