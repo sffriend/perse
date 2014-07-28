@@ -69,3 +69,11 @@ def excDetail(request, per_id):
 	the_list = [link_list, exc, symbols]
 	context = {'the_list' : the_list}
 	return render(request, 'per/excDetail.html', context)
+
+def exclist(request):
+    exc_list = Exercise.objects.order_by('title')
+    link_list = ExcEqn.objects.order_by('id')
+    symbols = ExcSym.objects.order_by('id')
+    the_list = [link_list, exc_list, symbols]
+    context = {'the_list' : the_list}
+    return render(request, 'per/testeqn.html', context)
