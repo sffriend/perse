@@ -12,4 +12,5 @@ urlpatterns = patterns('',
     url(r'^equations/(?P<per_id>\d+)/$', views.eqnDetail, name='eqnDetail'),
     url(r'^sections/(?P<per_id>\d+)/$', views.secDetail, name='secDetail'),
     url(r'^exercises/(?P<per_id>\d+)/$', views.excDetail, name='excDetail'),
+    url(r'^exclist/$', views.exclist, name='exclist'),
 )
