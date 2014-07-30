@@ -35,7 +35,7 @@ def sections(request):
     return render(request, 'per/sections.html', context)
 
 def exercises(request):
-    exc_list = Exercise.objects.order_by('id')
+    exc_list = Exercise.objects.order_by('title')
     context = {'exc_list': exc_list}
     return render(request, 'per/exercises.html', context)
 
