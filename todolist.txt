@@ -1,3 +1,7 @@
-ch 16 symbols and equation table
+change name 'type'
 
-show exercises on equation details
+d3.js
+
+symbols for multiple exercises selected via html form
+
+learn get/post methods
