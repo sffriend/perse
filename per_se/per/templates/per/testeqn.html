@@ -16,7 +16,7 @@
 		{% if the_list.1 %}
 			{% for exc in the_list.1 %}
 				<h2>{{ exc.title }}<input type="checkbox" name="{{ exc.title }}" value={{ exc.id }}></h2>
-				{{ exc.text|linebreaks }}
+				{{ exc.text|linebreaks }}<div>
 				<h3>Given Symbols</h3>
 				{% if the_list.2 %}
     				<ul>
@@ -30,7 +30,7 @@
     				</ul>
 				{% else %}
     				<p>No symbols are given</p>
-				{% endif %}
+				{% endif %}</div><div>
 				<h3>Hidden Symbols</h3>
 				{% if the_list.2 %}
     				<ul>
@@ -43,8 +43,8 @@
 		    		{% endfor %}
     				</ul>
 				{% else %}
-    				<p>No symbols are given</p>
-				{% endif %}
+    				<p>No symbols are hidden</p>
+				{% endif %}</div><div>
 				<h3>Find symbols:</h3>
 				{% if the_list.2 %}
     				<ul>
@@ -58,7 +58,7 @@
     				</ul>
 				{% else %}
     				<p>No symbols are given</p>
-				{% endif %}
+				{% endif %}</div>
 			{% endfor %}
 		{% endif %}
 		<input type="submit" value="submit" />
