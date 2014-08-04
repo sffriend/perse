@@ -83,7 +83,7 @@ def listResults(request, idlist):
     a_list = []
     i = 0
     for exc in exc_list:
-    	if exc.id = idlist[i]:
+    	if exc.id == idlist[i]:
     		a_list.append(exc)
     		i += 1
     link_list = ExcEqn.objects.order_by('id')
@@ -91,4 +91,8 @@ def listResults(request, idlist):
     the_list = [link_list, a_list, symbols]
     context = {'the_list' : the_list}
     return render(request, 'per/excListResults.html', context)
-    
+
+def posttest(request):
+    the_list = request.POST['choice']
+    context = {'the_list' : the_list}
+    return render(request, 'per/posttest.html', context)
