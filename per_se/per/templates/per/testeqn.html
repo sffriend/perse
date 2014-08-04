@@ -11,11 +11,11 @@
 	<script type="text/javascript" src="{{ STATIC_URL }}per/MathJax-2.4-latest/MathJax.js?config=TeX-AMS_HTML-full"></script>
 	</head>
 	<body>
-	<form action="{% url 'test' %}" choice method="post">
+	<form action="{% url 'excListResults' %}" choice method="post">
 	{% csrf_token %}
 		{% if the_list.1 %}
 			{% for exc in the_list.1 %}
-				<h2>{{ exc.title }}<input type="checkbox" name="choice" value={{ exc.id }}></h2>
+				<h2>{{ exc.title }}<input type="checkbox" name="choice[]" value={{ exc.id }}></h2>
 			{% endfor %}
 		{% endif %}
 		<input type="submit" value="submit" />

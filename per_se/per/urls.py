@@ -14,5 +14,4 @@ urlpatterns = patterns('',
     url(r'^exercises/(?P<per_id>\d+)/$', views.excDetail, name='excDetail'),
     url(r'^exclist/$', views.exclist, name='exclist'),
     url(r'^exclist/results$', views.listResults, name='excListResults'),
-    url(r'^exclist/test$', views.posttest, name='test'),
 )

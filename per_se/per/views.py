@@ -78,21 +78,13 @@ def exclist(request):
     context = {'the_list' : the_list}
     return render(request, 'per/testeqn.html', context)
 
-def listResults(request, idlist):
-    exc_list = Exercise.objects.order_by('id')
-    a_list = []
-    i = 0
-    for exc in exc_list:
-    	if exc.id == idlist[i]:
-    		a_list.append(exc)
-    		i += 1
-    link_list = ExcEqn.objects.order_by('id')
-    symbols = ExcSym.objects.order_by('id')
-    the_list = [link_list, a_list, symbols]
-    context = {'the_list' : the_list}
-    return render(request, 'per/excListResults.html', context)
-
-def posttest(request):
-    the_list = request.POST['choice']
-    context = {'the_list' : the_list}
-    return render(request, 'per/posttest.html', context)
+def listResults(request):
+	exclist = []
+	idlist = request.POST.getlist('choice[]')
+	for id in idlist:
+		exclist.append(get_object_or_404(Exercise, pk=id))
+	link_list = ExcEqn.objects.order_by('id')
+	symbols = ExcSym.objects.order_by('id')
+	the_list = [link_list, exclist, symbols]
+	context = {'the_list' : the_list}
+	return render(request, 'per/excListResults.html', context)
