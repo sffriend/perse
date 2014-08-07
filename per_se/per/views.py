@@ -78,6 +78,17 @@ def exclist(request):
     context = {'the_list' : the_list}
     return render(request, 'per/testeqn.html', context)
 
+def SecExc(request):
+	idlist = request.POST.getlist('choice[]')
+	exercises = Exercise.objects.order_by('id')
+	exc_list = [] 
+	for exc in exercises:
+		if str(exc.sec.id) in idlist:
+			exc_list.append(exc)
+	the_list = [idlist, exc_list]
+	context = {'the_list' : the_list}
+	return render(request, 'per/testeqn.html', context)
+
 def listResults(request):
 	exclist = []
 	idlist = request.POST.getlist('choice[]')
