@@ -2,6 +2,4 @@ change name 'type'
 
 d3.js
 
-symbols for multiple exercises selected via html form
-
-learn get/post methods
+display common symbols among exercises
