@@ -59,5 +59,23 @@
 				{% endif %}
 			{% endfor %}
 		{% endif %}
+		{% if the_list.3 %}
+			<h2>Given symbols stats</h2>
+			{% for sym, num in the_list.3.items %}
+				<li>${{sym.symbol}}$ : {{num}} time(s)</li>
+			{% endfor %}
+		{% endif %}
+		{% if the_list.4 %}
+			<h2>hidden symbols stats</h2>
+			{% for sym, num in the_list.4.items %}
+				<li>${{sym.symbol}}$ : {{num}} time(s)</li>
+			{% endfor %}
+		{% endif %}
+		{% if the_list.5 %}
+			<h2>found symbols stats</h2>
+			{% for sym, num in the_list.5.items %}
+				<li>${{sym.symbol}}$ : {{num}} time(s)</li>
+			{% endfor %}
+		{% endif %}
 	</body>
 </html>

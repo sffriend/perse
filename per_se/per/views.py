@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from itertools import chain
+from collections import defaultdict
 
 # Create your views here.
 from django.http import HttpResponse
@@ -96,6 +97,26 @@ def listResults(request):
 		exclist.append(get_object_or_404(Exercise, pk=id))
 	link_list = ExcEqn.objects.order_by('id')
 	symbols = ExcSym.objects.order_by('id')
-	the_list = [link_list, exclist, symbols]
+	sym_dict0 = {}
+	sym_dict1 = {}
+	sym_dict2 = {}
+	for sym in symbols:
+		if str(sym.exc.id) in idlist:
+			if sym.type == 0:
+				if sym.symbol in sym_dict0:
+					sym_dict0[sym.symbol] += 1
+				else:
+					sym_dict0[sym.symbol] = 1
+			if sym.type == 1:
+				if sym.symbol in sym_dict1:
+					sym_dict1[sym.symbol] += 1
+				else:
+					sym_dict1[sym.symbol] = 1
+			if sym.type == 2:
+				if sym.symbol in sym_dict2:
+					sym_dict2[sym.symbol] += 1
+				else:
+					sym_dict2[sym.symbol] = 1
+	the_list = [link_list, exclist, symbols, sym_dict0, sym_dict1, sym_dict2]
 	context = {'the_list' : the_list}
 	return render(request, 'per/excListResults.html', context)
