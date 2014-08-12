@@ -62,7 +62,7 @@
 		{% if the_list.3 %}
 			<h2>Given symbols stats</h2>
 			{% for sym, num in the_list.3.items %}
-				<li>${{sym.symbol}}$ : {{num}} time(s)</li>
+				<li>{State:'${{sym.symbol}}$', freq{given:{{num}}}}</li>
 			{% endfor %}
 		{% endif %}
 		{% if the_list.4 %}
@@ -77,5 +77,10 @@
 				<li>${{sym.symbol}}$ : {{num}} time(s)</li>
 			{% endfor %}
 		{% endif %}
+		<script type="text/javascript">
+		var x = JSON.parse("{{ the_list.3 }}");
+		print x;
+		</script>
+</script>
 	</body>
 </html>

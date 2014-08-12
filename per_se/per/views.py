@@ -1,12 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 from itertools import chain
 from collections import defaultdict
-
-# Create your views here.
 from django.http import HttpResponse
 from django.template import RequestContext, loader
-
 from per.models import Symbol, Equation, SymbolEquation, Exercise, Tag, Section, SectionEqn, SectionSym, TagLink, ExcEqn, ExcSym, SectionExc
+import json
+# Create your views here.
 
 '''
 def index(request):
