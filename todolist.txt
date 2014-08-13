@@ -2,4 +2,6 @@ change name 'type'
 
 d3.js
 
-display common symbols among exercises
+get dashboard working
+
+get pictures for excs working
