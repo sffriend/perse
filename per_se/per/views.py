@@ -96,26 +96,17 @@ def listResults(request):
 		exclist.append(get_object_or_404(Exercise, pk=id))
 	link_list = ExcEqn.objects.order_by('id')
 	symbols = ExcSym.objects.order_by('id')
-	sym_dict0 = {}
-	sym_dict1 = {}
-	sym_dict2 = {}
+	sym_dict = {}
 	for sym in symbols:
 		if str(sym.exc.id) in idlist:
+			if sym.symbol not in sym_dict:
+				sym_dict[sym.symbol] = [0, 0, 0]
 			if sym.type == 0:
-				if sym.symbol in sym_dict0:
-					sym_dict0[sym.symbol] += 1
-				else:
-					sym_dict0[sym.symbol] = 1
-			if sym.type == 1:
-				if sym.symbol in sym_dict1:
-					sym_dict1[sym.symbol] += 1
-				else:
-					sym_dict1[sym.symbol] = 1
-			if sym.type == 2:
-				if sym.symbol in sym_dict2:
-					sym_dict2[sym.symbol] += 1
-				else:
-					sym_dict2[sym.symbol] = 1
-	the_list = [link_list, exclist, symbols, sym_dict0, sym_dict1, sym_dict2]
+				sym_dict[sym.symbol][0] += 1
+			elif sym.type == 1:
+				sym_dict[sym.symbol][1] += 1
+			elif sym.type == 2:
+				sym_dict[sym.symbol][2] += 1
+	the_list = [link_list, exclist, symbols, sym_dict]
 	context = {'the_list' : the_list}
 	return render(request, 'per/excListResults.html', context)

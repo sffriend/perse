@@ -1,7 +1,1 @@
-change name 'type'
-
-d3.js
-
-get dashboard working
-
 get pictures for excs working
