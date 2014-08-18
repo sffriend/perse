@@ -32,6 +32,7 @@ class Exercise(models.Model):
 	img = models.CharField(max_length = 100)
 	title = models.CharField(max_length = 100)
 	conceptual = models.BooleanField(default = False)
+	calculus = models.BooleanField(default = False)
 	class Meta:
 		ordering = ('title',)
 	def __unicode__(self):

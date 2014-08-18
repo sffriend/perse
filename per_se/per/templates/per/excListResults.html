@@ -317,6 +317,16 @@
 		
 		dashboard('#dashboard',freqData);
 		</script>
+		<h2>Suggested Exercises</h2>
+		{% for sym, arr in the_list.3.items %}
+			{% if arr.1 = 0 %}
+				{% for symbol in the_list.2 %}
+					{% if sym.id = symbol.symbol.id and symbol.type = 1 %}
+						<li><a href="{% url 'excDetail' symbol.exc.id %}">${{ symbol.exc.title }}$</a></li>
+					{% endif %}
+				{% endfor %}
+			{% endif %}
+		{% endfor %}
 </script>
 	</body>
 </html>
