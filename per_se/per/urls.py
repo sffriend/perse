@@ -15,4 +15,5 @@ urlpatterns = patterns('',
     url(r'^exclist/$', views.exclist, name='exclist'),
     url(r'^secexclist/$', views.SecExc, name='secexclist'),
     url(r'^exclist/results$', views.listResults, name='excListResults'),
+    url(r'^hair/$', views.hair, name='hair'),
 )

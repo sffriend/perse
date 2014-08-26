@@ -110,3 +110,6 @@ def listResults(request):
 	the_list = [link_list, exclist, symbols, sym_dict]
 	context = {'the_list' : the_list}
 	return render(request, 'per/excListResults.html', context)
+
+def hair(request):
+	return render(request, 'per/hair.html')

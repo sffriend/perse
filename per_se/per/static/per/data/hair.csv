@@ -15,3 +15,7 @@ has,prefers,count
 "blonde","red",6171
 "brown","brown",8090
 "red","blonde",990
+"blue","blue",11975
+"blue","red",6171
+"blue","brown",8090
+"red","blue",990

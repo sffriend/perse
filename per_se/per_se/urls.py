@@ -23,4 +23,5 @@ urlpatterns = patterns('',
     url(r'^secexclist/$', views.SecExc, name='secexclist'),
     url(r'^exclist/results$', views.listResults, name='excListResults'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^hair/$', views.hair, name='hair'),
 )
