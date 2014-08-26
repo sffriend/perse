@@ -40,5 +40,20 @@
     		<p>No equations are available.</p>
 		{% endif %}
 		[<a href="{% url 'index' %}">Main Index</a>]
+		<h2>Related Equations</h2>
+    		<ul>
+    		{% for obj in the_list.0 %}
+    			{% if obj.equation.id = the_list.1.id %}
+        			<li><h3>${{ obj.symbol.symbol }}$</h3></li>
+        			<ul>
+					{% for eqn in the_list.0 %}
+						{% if eqn.symbol.id = obj.symbol.id %}
+							<li><a href="{% url 'eqnDetail' eqn.equation.id %}">${{ eqn.equation.latex }}$</a></li>
+						{% endif %}
+					{% endfor %}
+					</ul>
+        		{% endif %}
+		    {% endfor %}
+    		</ul>
 	</body>
 </html>

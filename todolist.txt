@@ -3,3 +3,5 @@ get pictures for excs working
 fix urls
 
 suggested exercise list for variables that do not appear as hidden in current exercises
+
+Select Equation -> every related equation via symbol
