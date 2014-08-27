@@ -1,0 +1,25 @@
+
+.btn {		
+  display: inline-block;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  -webkit-transition: -webkit-box-shadow .2s ease-in-out;
+  -moz-transition: -moz-box-shadow .2s ease-in-out;
+  -o-transition: -o-box-shadow .2s ease-in-out;
+  transition: box-shadow .2s ease-in-out;
+}
+
+.btn span {	
+  text-align: center;
+  display: inline-block;
+  margin-top: 14px;
+  padding-top: 12px;
+  width: 100px;
+  height: 25px;
+  font-family: "Impact";
+  color: white;
+  font-size: 15px;
+  line-height: 1;
+  background: #111;
+}
