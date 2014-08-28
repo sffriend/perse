@@ -8,13 +8,24 @@ MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 </ul>
 <h2>Relevant Equations</h2>
 {% if the_list.0 %}
-	<ul>
+	<ul id="eqList">
 	{% for obj in the_list.0 %}
 		{% if obj.symbol.id = the_list.1.id %}
-			<li><a href="{% url 'eqnDetail' obj.equation.id %}">${{ obj.equation.latex }}$</a></li>
+			<li data-eq="{{ obj.equation.id }}">${{ obj.equation.latex }}$</li>
 		{% endif %}
 	{% endfor %}
 	</ul>
 {% else %}
 	<p>No equations are available.</p>
 {% endif %}
+
+<script src="{{ STATIC_URL }}per/js/jquery.js"></script>
+<script>
+	$(document).ready(function(){
+	  $('#eqList li').on('click', function() {
+		$.get( "/equations/"+$(this).data("eq"), function (data) {
+		  $("#content").html(data);
+		});  
+	  }); 
+	});
+</script>

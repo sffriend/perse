@@ -5,10 +5,10 @@ MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 <h1>Chapter {{ the_list.1.ch_num }} : {{ the_list.1.name }}</h1>
 <h2>Relevant Equations</h2>
 {% if the_list.0 %}
-	<ul>
+	<ul id="eqList">
 	{% for obj in the_list.0 %}
 		{% if obj.section.id = the_list.1.id %}
-			<li><a href="{% url 'eqnDetail' obj.equation.id %}">${{ obj.equation.latex }}$</a></li>
+			<li data-eq="{{ obj.equation.id }}">${{ obj.equation.latex }}$</li>
 		{% endif %}
 	{% endfor %}
 	</ul>
@@ -18,10 +18,10 @@ MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 <h2>Problems</h2>
 <form action="{% url 'excListResults' %}" choice method="post">
 {% csrf_token %}
-	{% if the_list.2 %}<ul>
+	{% if the_list.2 %}<ul id="exList">
 		{% for exc in the_list.2 %}
 			{% if exc.sec.id = the_list.1.id %}
-				<li><a href="{% url 'excDetail' exc.id %}">Ex) {{ exc.title }}</a><input type="checkbox" name="choice[]" value={{ exc.id }}></li>
+				<li data-ex="{{ exc.id }}">${{ exc.title }}$<input type="checkbox" name="choice[]" value={{ exc.id }}></li>
 			{% endif %}
 		{% endfor %}
 		</ul>
@@ -30,3 +30,21 @@ MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 	{% endif %}
 	<input type="submit" value="submit" />
 </form>
+
+<script src="{{ STATIC_URL }}per/js/jquery.js"></script>
+<script>
+	$(document).ready(function(){
+	  $('#exList li').on('click', function() {
+		$.get( "/exercises/"+$(this).data("ex"), function (data) {
+		  $("#content").html(data);
+		});  
+	  }); 
+	});
+	$(document).ready(function(){
+	  $('#eqList li').on('click', function() {
+		$.get( "/equations/"+$(this).data("eq"), function (data) {
+		  $("#content").html(data);
+		});  
+	  }); 
+	});
+</script>
