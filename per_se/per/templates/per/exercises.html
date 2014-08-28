@@ -23,15 +23,28 @@
 	</div>
 	<div id="list">
 		{% if exc_list %}
-    		<ul>
+    		<ul id = "navList">
     		<h1>Exercises</h1>
     		{% for exc in exc_list %}
-        		<li><a href="{% url 'excDetail' exc.id %}">${{ exc.title }}$</a></li>
+    			<li data-sym="{{ exc.id }}">{{ exc.title }}</li>
 		    {% endfor %}
     		</ul>
 		{% else %}
     		<p>No exercises are available.</p>
 		{% endif %}
 	</div>
+	<div id="content">
+	
+	</div>
+	<script src="{{ STATIC_URL }}per/js/jquery.js"></script>
+	<script>
+		$(document).ready(function(){
+          $('#navList li').on('click', function() {
+            $.get( "/exercises/"+$(this).data("sym"), function (data) {
+              $("#content").html(data);
+            });  
+          }); 
+        });
+	</script>
 	</body>
 </html>

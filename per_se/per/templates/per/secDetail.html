@@ -1,45 +1,50 @@
-<!DOCTYPE html>
-<html>
-	<head>
-	<title>Details</title>
-	<script type="text/x-mathjax-config">
-	  MathJax.Hub.Config({
-    	tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
-  	});
-	</script>
-	{% load staticfiles %}
-	<script type="text/javascript" src="{{ STATIC_URL }}per/MathJax-2.4-latest/MathJax.js?config=TeX-AMS_HTML-full"></script>
-	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}per/css/global.css">
-	</head>
-	<body>
-		<h1>Chapter {{ the_list.1.ch_num }} : {{ the_list.1.name }}</h1>
-		<h2>Relevant Equations</h2>
-		{% if the_list.0 %}
-    		<ul>
-    		{% for obj in the_list.0 %}
-    			{% if obj.section.id = the_list.1.id %}
-        			<li><a href="{% url 'eqnDetail' obj.equation.id %}">${{ obj.equation.latex }}$</a></li>
-        		{% endif %}
-		    {% endfor %}
-    		</ul>
-		{% else %}
-    		<p>No equations are available.</p>
+<script>
+MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+</script>
+
+<h1>Chapter {{ the_list.1.ch_num }} : {{ the_list.1.name }}</h1>
+<h2>Relevant Equations</h2>
+{% if the_list.0 %}
+	<ul id="eqList">
+	{% for obj in the_list.0 %}
+		{% if obj.section.id = the_list.1.id %}
+			<li data-eq="{{ obj.equation.id }}">${{ obj.equation.latex }}$</li>
 		{% endif %}
-		<h2>Problems</h2>
-		<form action="{% url 'excListResults' %}" choice method="post">
-		{% csrf_token %}
-			{% if the_list.2 %}<ul>
-    			{% for exc in the_list.2 %}
-    				{% if exc.sec.id = the_list.1.id %}
-        				<li><a href="{% url 'excDetail' exc.id %}">Ex) {{ exc.title }}</a><input type="checkbox" name="choice[]" value={{ exc.id }}></li>
-        			{% endif %}
-			    {% endfor %}
-    			</ul>
-			{% else %}
-    			<p>No exercises are available.</p>
+	{% endfor %}
+	</ul>
+{% else %}
+	<p>No equations are available.</p>
+{% endif %}
+<h2>Problems</h2>
+<form action="{% url 'excListResults' %}" choice method="post">
+{% csrf_token %}
+	{% if the_list.2 %}<ul id="exList">
+		{% for exc in the_list.2 %}
+			{% if exc.sec.id = the_list.1.id %}
+				<li data-ex="{{ exc.id }}">${{ exc.title }}$<input type="checkbox" name="choice[]" value={{ exc.id }}></li>
 			{% endif %}
-			<input type="submit" value="submit" />
-		</form><br>
-		[<a href="{% url 'index' %}">Main Index</a>]
-	</body>
-</html>
+		{% endfor %}
+		</ul>
+	{% else %}
+		<p>No exercises are available.</p>
+	{% endif %}
+	<input type="submit" value="submit" />
+</form>
+
+<script src="{{ STATIC_URL }}per/js/jquery.js"></script>
+<script>
+	$(document).ready(function(){
+	  $('#exList li').on('click', function() {
+		$.get( "/exercises/"+$(this).data("ex"), function (data) {
+		  $("#content").html(data);
+		});  
+	  }); 
+	});
+	$(document).ready(function(){
+	  $('#eqList li').on('click', function() {
+		$.get( "/equations/"+$(this).data("eq"), function (data) {
+		  $("#content").html(data);
+		});  
+	  }); 
+	});
+</script>

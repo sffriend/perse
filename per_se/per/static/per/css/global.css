@@ -4,6 +4,17 @@ body {
 	color: #DDD;
 }
 
+#list {
+	float: left;
+	width:40%;
+}
+
+#content {
+	float: right;
+	width: 55%;
+	
+}
+
 h1 {
 	font-size: 24px;
 	color: #DDD;
@@ -41,14 +52,4 @@ a {
 
 li:hover{
 	background: #555;
-}
-
-#list {
-	float: left;
-	width:40%;
-}
-
-#content {
-	float: right;
-	width: 55%;
 }

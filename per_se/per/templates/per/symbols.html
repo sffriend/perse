@@ -23,7 +23,7 @@
 	</div>
 	<div id="list">
 		{% if symbol_list %}
-    		<ul>
+    		<ul id="navList">
     		<h1>Symbols</h1>
     		{% for sym in symbol_list %}
         		<li data-sym="{{ sym.id }}">${{ sym.symbol }}$</li>
@@ -39,7 +39,11 @@
 	<script src="{{ STATIC_URL }}per/js/jquery.js"></script>
 	<script>
 		$(document).ready(function(){
+<<<<<<< HEAD
 		  $('li').on('click', function() {
+=======
+          $('#navList li').on('click', function() {
+>>>>>>> FETCH_HEAD
             $.get( "/symbols/"+$(this).data("sym"), function (data) {
               $("#content").html(data);
             });  
