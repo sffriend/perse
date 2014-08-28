@@ -26,7 +26,7 @@
     		<ul>
     		<h1>Symbols</h1>
     		{% for sym in symbol_list %}
-        		<li><a href="{% url 'symDetail' sym.id %}">${{ sym.symbol }}$</a></li>
+        		<li data-sym="{{ sym.id }}">${{ sym.symbol }}$</li>
 		    {% endfor %}
     		</ul>
 		{% else %}
@@ -39,8 +39,12 @@
 	<script src="{{ STATIC_URL }}per/js/jquery.js"></script>
 	<script>
 		$(document).ready(function(){
-			$("#content").text("Hello");
-		});
+		  $('li').on('click', function() {
+            $.get( "/symbols/"+$(this).data("sym"), function (data) {
+              $("#content").html(data);
+            });  
+          }); 
+        });
 	</script>
 	</body>
 </html>
