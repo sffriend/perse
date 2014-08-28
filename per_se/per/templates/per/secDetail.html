@@ -21,7 +21,7 @@ MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 	{% if the_list.2 %}<ul id="exList">
 		{% for exc in the_list.2 %}
 			{% if exc.sec.id = the_list.1.id %}
-				<li data-ex="{{ exc.id }}">${{ exc.title }}$<input type="checkbox" name="choice[]" value={{ exc.id }}></li>
+				<li><div id="link" data-ex="{{ exc.id }}">${{ exc.title }}$</div><div id="checkbox"><input type="checkbox" name="choice[]" value={{ exc.id }}></div></li>
 			{% endif %}
 		{% endfor %}
 		</ul>
@@ -34,15 +34,15 @@ MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 <script src="{{ STATIC_URL }}per/js/jquery.js"></script>
 <script>
 	$(document).ready(function(){
-	  $('#exList li').on('click', function() {
-		$.get( "/exercises/"+$(this).data("ex"), function (data) {
+	  $('#eqList li').on('click', function() {
+		$.get( "/equations/"+$(this).data("eq"), function (data) {
 		  $("#content").html(data);
 		});  
 	  }); 
 	});
 	$(document).ready(function(){
-	  $('#eqList li').on('click', function() {
-		$.get( "/equations/"+$(this).data("eq"), function (data) {
+	  $('#exList div').on('click', function() {
+		$.get( "/exercises/"+$(this).data("ex"), function (data) {
 		  $("#content").html(data);
 		});  
 	  }); 
