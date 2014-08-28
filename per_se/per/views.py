@@ -85,9 +85,15 @@ def SecExc(request):
 	for exc in exercises:
 		if str(exc.sec.id) in idlist:
 			exc_list.append(exc)
-	the_list = [idlist, exc_list]
+	exc_dict = {}
+	for exc in exercises:
+		if exc.sec not in exc_dict:
+			exc_dict[exc.sec] = []
+		exc_dict[exc.sec].append(exc)
+	print exc_dict
+	the_list = [idlist, exc_dict]
 	context = {'the_list' : the_list}
-	return render(request, 'per/testeqn.html', context)
+	return render(request, 'per/SecExcList.html', context)
 
 def listResults(request):
 	exclist = []
