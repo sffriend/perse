@@ -103,6 +103,8 @@ def listResults(request):
 	link_list = ExcEqn.objects.order_by('id')
 	symbols = ExcSym.objects.order_by('id')
 	sym_dict = {}
+	def getKey(exc):
+		return exc.title
 	for sym in symbols:
 		if str(sym.exc.id) in idlist:
 			if sym.symbol not in sym_dict:
@@ -113,7 +115,7 @@ def listResults(request):
 				sym_dict[sym.symbol][1] += 1
 			elif sym.type == 2:
 				sym_dict[sym.symbol][2] += 1
-	the_list = [link_list, exclist, symbols, sym_dict]
+	the_list = [link_list, sorted(exclist, key=getKey), symbols, sym_dict]
 	context = {'the_list' : the_list}
 	return render(request, 'per/excListResults.html', context)
 

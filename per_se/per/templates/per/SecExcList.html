@@ -15,6 +15,15 @@
 	<form action="{% url 'excListResults' %}" choice method="post">
 	{% csrf_token %}
 		{% if the_list.1 %}
+		<script>
+		function toggle(source) {
+		  checkboxes = document.getElementsByName('choice[]');
+		  for(var i=0, n=checkboxes.length;i<n;i++) {
+			checkboxes[i].checked = source.checked;
+		  }
+		}
+		</script>
+		<input type="checkbox" onClick="toggle(this)" /> Select All<br/>
 			{% for sec, exercises in the_list.1.items %}
 				<h2>{{sec.ch_num}}: {{sec.name}}</h2>
 				<ul>

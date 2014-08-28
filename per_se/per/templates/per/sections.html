@@ -22,11 +22,20 @@
 	</center>
 	</div>
 	<div id="list">
+		<script>
+		function toggle(source) {
+		  checkboxes = document.getElementsByName('choice[]');
+		  for(var i=0, n=checkboxes.length;i<n;i++) {
+			checkboxes[i].checked = source.checked;
+		  }
+		}
+		</script>
 	<form action="{% url 'secexclist' %}" choice method="post">
 		{% csrf_token %}
 		{% if sec_list %}
     		<ul>
     		<h1>Sections</h1>
+    		<input type="checkbox" onClick="toggle(this)" /> Select All<br/>
     		{% for sec in sec_list %}
         		<li><a href="{% url 'secDetail' sec.id %}">{{ sec.ch_num }} : {{ sec.name }}</a><input type="checkbox" name="choice[]" value={{ sec.id }}></li>
 		    {% endfor %}
