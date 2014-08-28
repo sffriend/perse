@@ -30,21 +30,34 @@
 		  }
 		}
 		</script>
-	<form action="{% url 'secexclist' %}" choice method="post">
-		{% csrf_token %}
-		{% if sec_list %}
-    		<ul>
-    		<h1>Sections</h1>
-    		<input type="checkbox" onClick="toggle(this)" /> Select All<br/>
-    		{% for sec in sec_list %}
-        		<li><a href="{% url 'secDetail' sec.id %}">{{ sec.ch_num }} : {{ sec.name }}</a><input type="checkbox" name="choice[]" value={{ sec.id }}></li>
-		    {% endfor %}
-    		</ul>
-		{% else %}
-    		<p>No symbols are available.</p>
-		{% endif %}
-		<input type="submit" value="submit" />
-	</form>
+		<form action="{% url 'secexclist' %}" choice method="post">
+			{% csrf_token %}
+			{% if sec_list %}
+				<ul id="navList">
+				<h1>Sections</h1>
+				<input type="checkbox" onClick="toggle(this)" /> Select All<br/>
+				{% for sec in sec_list %}
+					<li data-sym="{{ sec.id }}">{{ sec.ch_num }}: {{ sec.name }}<input type="checkbox" name="choice[]" value={{ sec.id }}></li>
+				{% endfor %}
+				</ul>
+			{% else %}
+				<p>No symbols are available.</p>
+			{% endif %}
+			<input type="submit" value="submit" />
+		</form>
 	</div>
+	<div id="content">
+	
+	</div>
+	<script src="{{ STATIC_URL }}per/js/jquery.js"></script>
+	<script>
+		$(document).ready(function(){
+          $('#navList li').on('click', function() {
+            $.get( "/sections/"+$(this).data("sym"), function (data) {
+              $("#content").html(data);
+            });  
+          }); 
+        });
+	</script>
 	</body>
 </html>

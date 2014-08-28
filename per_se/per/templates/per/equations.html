@@ -23,15 +23,28 @@
 	</div>
 	<div id="list">
 		{% if eqn_list %}
-    		<ul>
+    		<ul id="navList">
     		<h1>Equations</h1>
     		{% for eqn in eqn_list %}
-        		<li><a href="{% url 'eqnDetail' eqn.id %}">${{ eqn.latex }}$</a></li>
+    			<li data-sym="{{ eqn.id }}">${{ eqn.latex }}$</li>
 		    {% endfor %}
     		</ul>
 		{% else %}
     		<p>No symbols are available.</p>
 		{% endif %}
 	</div>
+	<div id="content">
+	
+	</div>
+	<script src="{{ STATIC_URL }}per/js/jquery.js"></script>
+	<script>
+		$(document).ready(function(){
+          $('#navList li').on('click', function() {
+            $.get( "/equations/"+$(this).data("sym"), function (data) {
+              $("#content").html(data);
+            });  
+          }); 
+        });
+	</script>
 	</body>
 </html>

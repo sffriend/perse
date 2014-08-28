@@ -1,60 +1,46 @@
-<!DOCTYPE html>
-<html>
-	<head>
-	<title>Details</title>
-	<script type="text/x-mathjax-config">
-	  MathJax.Hub.Config({
-    	tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
-  	});
-	</script>
-	{% load staticfiles %}
-	<script type="text/javascript" src="{{ STATIC_URL }}per/MathJax-2.4-latest/MathJax.js?config=TeX-AMS_HTML-full"></script>
-	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}per/css/global.css">
-	</head>
-	<body>
-		<h1>{{ the_list.1.name }}</h1>
-		<ul>
-    		<li>${{ the_list.1.latex }}$</li>
-		</ul>
-		<h2>Relevant Symbols</h2>
-		{% if the_list.0 %}
-    		<ul>
-    		{% for obj in the_list.0 %}
-    			{% if obj.equation.id = the_list.1.id %}
-        			<li><a href="{% url 'symDetail' obj.symbol.id %}">${{ obj.symbol.symbol }}$</a></li>
-        		{% endif %}
-		    {% endfor %}
-    		</ul>
-		{% else %}
-    		<p>No equations are available.</p>
+<script>
+MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+</script>
+<h1>{{ the_list.1.name }}</h1>
+<ul>
+	<li>${{ the_list.1.latex }}$</li>
+</ul>
+<h2>Relevant Symbols</h2>
+{% if the_list.0 %}
+	<ul>
+	{% for obj in the_list.0 %}
+		{% if obj.equation.id = the_list.1.id %}
+			<li><a href="{% url 'symDetail' obj.symbol.id %}">${{ obj.symbol.symbol }}$</a></li>
 		{% endif %}
-		<h2>Relevant Exercises</h2>
-		{% if the_list.2 %}
-    		<ul>
-    		{% for obj in the_list.2 %}
-    			{% if obj.eqn.id = the_list.1.id %}
-        			<li><a href="{% url 'excDetail' obj.exc.id %}">${{ obj.exc.title }}$</a></li>
-        		{% endif %}
-		    {% endfor %}
-    		</ul>
-		{% else %}
-    		<p>No equations are available.</p>
+	{% endfor %}
+	</ul>
+{% else %}
+	<p>No equations are available.</p>
+{% endif %}
+<h2>Relevant Exercises</h2>
+{% if the_list.2 %}
+	<ul>
+	{% for obj in the_list.2 %}
+		{% if obj.eqn.id = the_list.1.id %}
+			<li><a href="{% url 'excDetail' obj.exc.id %}">${{ obj.exc.title }}$</a></li>
 		{% endif %}
-		<h2>Related Equations</h2>
-    		<ul>
-    		{% for obj in the_list.0 %}
-    			{% if obj.equation.id = the_list.1.id %}
-        			<li><h3>${{ obj.symbol.symbol }}$</h3></li>
-        			<ul>
-					{% for eqn in the_list.0 %}
-						{% if eqn.symbol.id = obj.symbol.id %}
-							<li><a href="{% url 'eqnDetail' eqn.equation.id %}">${{ eqn.equation.latex }}$</a></li>
-						{% endif %}
-					{% endfor %}
-					</ul>
-        		{% endif %}
-		    {% endfor %}
-    		</ul>
-		[<a href="{% url 'index' %}">Main Index</a>]
-	</body>
-</html>
+	{% endfor %}
+	</ul>
+{% else %}
+	<p>No equations are available.</p>
+{% endif %}
+<h2>Related Equations</h2>
+	<ul>
+	{% for obj in the_list.0 %}
+		{% if obj.equation.id = the_list.1.id %}
+			<li><h3>${{ obj.symbol.symbol }}$</h3></li>
+			<ul>
+			{% for eqn in the_list.0 %}
+				{% if eqn.symbol.id = obj.symbol.id %}
+					<li><a href="{% url 'eqnDetail' eqn.equation.id %}">${{ eqn.equation.latex }}$</a></li>
+				{% endif %}
+			{% endfor %}
+			</ul>
+		{% endif %}
+	{% endfor %}
+	</ul>

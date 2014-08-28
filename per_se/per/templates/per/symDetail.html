@@ -1,33 +1,20 @@
-<!DOCTYPE html>
-<html>
-	<head>
-	<title>Details</title>
-	<script type="text/x-mathjax-config">
-	  MathJax.Hub.Config({
-    	tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
-  	});
-	</script>
-	{% load staticfiles %}
-	<script type="text/javascript" src="{{ STATIC_URL }}per/MathJax-2.4-latest/MathJax.js?config=TeX-AMS_HTML-full"></script>
-	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}per/css/global.css">
-	</head>
-	<body>
-		<h1>{{ the_list.1.name }}</h1>
-		<ul>
-    		<li>${{ the_list.1.symbol }}$</li>
-		</ul>
-		<h2>Relevant Equations</h2>
-		{% if the_list.0 %}
-    		<ul>
-    		{% for obj in the_list.0 %}
-    			{% if obj.symbol.id = the_list.1.id %}
-        			<li><a href="{% url 'eqnDetail' obj.equation.id %}">${{ obj.equation.latex }}$</a></li>
-        		{% endif %}
-		    {% endfor %}
-    		</ul>
-		{% else %}
-    		<p>No equations are available.</p>
+<script>
+MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+</script>
+
+<h1>{{ the_list.1.name }}</h1>
+<ul>
+	<li>${{ the_list.1.symbol }}$</li>
+</ul>
+<h2>Relevant Equations</h2>
+{% if the_list.0 %}
+	<ul>
+	{% for obj in the_list.0 %}
+		{% if obj.symbol.id = the_list.1.id %}
+			<li><a href="{% url 'eqnDetail' obj.equation.id %}">${{ obj.equation.latex }}$</a></li>
 		{% endif %}
-		[<a href="{% url 'index' %}">Main Index</a>]
-	</body>
-</html>
+	{% endfor %}
+	</ul>
+{% else %}
+	<p>No equations are available.</p>
+{% endif %}
