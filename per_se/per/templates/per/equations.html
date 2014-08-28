@@ -7,10 +7,21 @@
     	tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
   	});
 	</script>
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}per/css/btn.css">
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}per/css/global.css">
 	{% load staticfiles %}
 	<script type="text/javascript" src="{{ STATIC_URL }}per/MathJax-2.4-latest/MathJax.js?config=TeX-AMS_HTML-full"></script>
 	</head>
 	<body>
+	<div id = "buttons" style="height:50px;">
+	<center>
+	<a href="/symbols" class="btn"><span>Symbols</span></a>
+	<a href="/equations" class="btn"><span>Equations</span></a>
+	<a href="/sections" class="btn"><span>Sections</span></a>
+	<a href="/exercises" class="btn"><span>Exercises</span></a>
+	</center>
+	</div>
+	<div id="list">
 		{% if eqn_list %}
     		<ul>
     		<h1>Equations</h1>
@@ -21,5 +32,6 @@
 		{% else %}
     		<p>No symbols are available.</p>
 		{% endif %}
+	</div>
 	</body>
 </html>

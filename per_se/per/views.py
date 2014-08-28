@@ -80,7 +80,7 @@ def exclist(request):
 
 def SecExc(request):
 	idlist = request.POST.getlist('choice[]')
-	exercises = Exercise.objects.order_by('id')
+	exercises = Exercise.objects.order_by('title')
 	exc_list = [] 
 	for exc in exercises:
 		if str(exc.sec.id) in idlist:
