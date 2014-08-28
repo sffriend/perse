@@ -81,16 +81,11 @@ def exclist(request):
 def SecExc(request):
 	idlist = request.POST.getlist('choice[]')
 	exercises = Exercise.objects.order_by('title')
-	exc_list = [] 
-	for exc in exercises:
-		if str(exc.sec.id) in idlist:
-			exc_list.append(exc)
 	exc_dict = {}
 	for exc in exercises:
 		if exc.sec not in exc_dict:
 			exc_dict[exc.sec] = []
 		exc_dict[exc.sec].append(exc)
-	print exc_dict
 	the_list = [idlist, exc_dict]
 	context = {'the_list' : the_list}
 	return render(request, 'per/SecExcList.html', context)
@@ -115,7 +110,7 @@ def listResults(request):
 				sym_dict[sym.symbol][1] += 1
 			elif sym.type == 2:
 				sym_dict[sym.symbol][2] += 1
-	the_list = [link_list, sorted(exclist, key=getKey), symbols, sym_dict]
+	the_list = [link_list, sorted(exclist,key=getKey), symbols, sym_dict]
 	context = {'the_list' : the_list}
 	return render(request, 'per/excListResults.html', context)
 
