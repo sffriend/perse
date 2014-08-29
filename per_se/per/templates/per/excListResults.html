@@ -20,17 +20,18 @@
 	</script>
 	<script type="text/javascript" src="{{ STATIC_URL }}per/MathJax-2.4-latest/MathJax.js?config=TeX-AMS_HTML-full"></script>
 	<style>
-	path {  stroke: #fff; }
+	path {  stroke: #DDD; }
 	path:hover {  opacity:0.9; }
-	rect:hover {  fill:blue; }
+	rect:hover {  fill:#444; }
 	.legend tr{    border-bottom:1px solid grey; }
 	.legend tr:first-child{    border-top:1px solid grey; }
 
 	.axis path,
-	.axis {  font: 10px arial; }
+	.axis {
+	  font: 10px arial;
+	}
 	.axis line {
 	  fill: none;
-	  stroke: #000;
 	  shape-rendering: crispEdges;
 	}
 
@@ -52,7 +53,7 @@
 	
 	.chord path {
 	  fill-opacity: .67;
-	  stroke: #000;
+	  stroke: #111;
 	  stroke-width: .5px;
 	}
 
@@ -69,70 +70,14 @@
 	<a href="/exercises" class="btn"><span>Exercises</span></a>
 	</center>
 	</div>
-	<div id="list">
-		{% if the_list.1 %}
-			{% for exc in the_list.1 %}
-				<h2>{{ exc.title }}</h2>
-				{{ exc.text|linebreaks }}
-				<li>
-				{% if the_list.1.img == "none" %}
-				image goes here
-				{% else %}
-				no image
-				{% endif %}
-				</li>
-				<h3>Given Symbols</h3>
-				{% if the_list.2 %}
-    				<ul>
-    				{% for obj in the_list.2 %}
-    					{% if obj.exc.id = exc.id %}
-    						{% if obj.type = 0 %}
-        						<li><a href="{% url 'symDetail' obj.symbol.id %}">${{ obj.symbol.symbol }}$</a></li>
-    						{% endif %}
-        				{% endif %}
-		    		{% endfor %}
-    				</ul>
-				{% else %}
-    				<p>No symbols are given</p>
-				{% endif %}
-				<h3>Hidden Symbols</h3>
-				{% if the_list.2 %}
-    				<ul>
-    				{% for obj in the_list.2 %}
-    					{% if obj.exc.id = exc.id %}
-    						{% if obj.type = 1 %}
-        						<li><a href="{% url 'symDetail' obj.symbol.id %}">${{ obj.symbol.symbol }}$</a></li>
-    						{% endif %}
-        				{% endif %}
-		    		{% endfor %}
-    				</ul>
-				{% else %}
-    				<p>No symbols are given</p>
-				{% endif %}
-				<h3>Find symbols:</h3>
-				{% if the_list.2 %}
-    				<ul>
-    				{% for obj in the_list.2 %}
-    					{% if obj.exc.id = exc.id %}
-    						{% if obj.type = 2 %}
-        						<li><a href="{% url 'symDetail' obj.symbol.id %}">${{ obj.symbol.symbol }}$</a></li>
-    						{% endif %}
-        				{% endif %}
-		    		{% endfor %}
-    				</ul>
-				{% else %}
-    				<p>No symbols are given</p>
-				{% endif %}
-			{% endfor %}
-		{% endif %}
-		</div>
 		<div id='dashboard'>
 		</div>
+		<div>
 		<script src="http://d3js.org/d3.v3.min.js"></script>
 		<script>
 		function dashboard(id, fData){
-			var barColor = 'steelblue';
-			function segColor(c){ return {given:"#807dba", hidden:"#e08214",find:"#41ab5d"}[c]; }
+			var barColor = '#111';
+			function segColor(c){ return {given:"#EEE", hidden:"#500",find:"#444"}[c]; }
 	
 			// compute total for each symbol.
 			fData.forEach(function(d){d.total=d.freq.given+d.freq.hidden+d.freq.find;});
@@ -336,16 +281,89 @@
 		
 		dashboard('#dashboard',freqData);
 		</script>
+		</div>
+	<div id="list">
+		{% if the_list.1 %}
+			{% for exc in the_list.1 %}
+				<h2>{{ exc.title }}</h2>
+				<h3>Given Symbols</h3>
+				{% if the_list.2 %}
+    				<ul id="symList">
+    				{% for obj in the_list.2 %}
+    					{% if obj.exc.id = exc.id %}
+    						{% if obj.type = 0 %}
+    							<li data-sym="{{ obj.symbol.id }}">${{ obj.symbol.symbol }}$</li>
+    						{% endif %}
+        				{% endif %}
+		    		{% endfor %}
+    				</ul>
+				{% else %}
+    				<p>No symbols are given</p>
+				{% endif %}
+				<h3>Hidden Symbols</h3>
+				{% if the_list.2 %}
+    				<ul id="symList">
+    				{% for obj in the_list.2 %}
+    					{% if obj.exc.id = exc.id %}
+    						{% if obj.type = 1 %}
+    							<li data-sym="{{ obj.symbol.id }}">${{ obj.symbol.symbol }}$</li>
+    						{% endif %}
+        				{% endif %}
+		    		{% endfor %}
+    				</ul>
+				{% else %}
+    				<p>No symbols are given</p>
+				{% endif %}
+				<h3>Find symbols:</h3>
+				{% if the_list.2 %}
+    				<ul id="symList">
+    				{% for obj in the_list.2 %}
+    					{% if obj.exc.id = exc.id %}
+    						{% if obj.type = 2 %}
+    							<li data-sym="{{ obj.symbol.id }}">${{ obj.symbol.symbol }}$</li>
+    						{% endif %}
+        				{% endif %}
+		    		{% endfor %}
+    				</ul>
+				{% else %}
+    				<p>No symbols are given</p>
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+
 		
 		<h2>Suggested Exercises</h2>
+		<ul id="excList">
 		{% for sym, arr in the_list.3.items %}
 			{% if arr.1 = 0 %}
 				{% for symbol in the_list.2 %}
 					{% if sym.id = symbol.symbol.id and symbol.type = 1 %}
-						<li><a href="{% url 'excDetail' symbol.exc.id %}">${{ symbol.exc.title }}$</a></li>
+						<li data-exc="{{ symbol.exc.id }}">${{ symbol.exc.title }}$</li>
 					{% endif %}
 				{% endfor %}
 			{% endif %}
 		{% endfor %}
+		</ul>
+		</div>
+		<div id="content">
+	
+		</div>
+		<script src="{{ STATIC_URL }}per/js/jquery.js"></script>
+		<script>
+			$(document).ready(function(){
+			  $('#symList li').on('click', function() {
+				$.get( "/symbols/"+$(this).data("sym"), function (data) {
+				  $("#content").html(data);
+				});  
+			  }); 
+			});
+			$(document).ready(function(){
+			  $('#excList li').on('click', function() {
+				$.get( "/exercises/"+$(this).data("exc"), function (data) {
+				  $("#content").html(data);
+				});  
+			  }); 
+			});
+		</script>
 	</body>
 </html>

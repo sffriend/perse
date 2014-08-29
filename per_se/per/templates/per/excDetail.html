@@ -3,14 +3,12 @@ MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 </script>
 
 <h1>{{ the_list.1.title }}</h1>
-<li>{{ the_list.1.text|linebreaks }}</li>
-<li>
+{{ the_list.1.text|linebreaks }}
 {% if the_list.1.img == "none" %}
 image goes here
 {% else %}
 no image
 {% endif %}
-</li>
 <h2>Relevant Equations</h2>
 {% if the_list.0 %}
 	<ul id="eqList">
