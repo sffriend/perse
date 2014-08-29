@@ -7,10 +7,10 @@ MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 </ul>
 <h2>Relevant Symbols</h2>
 {% if the_list.0 %}
-	<ul>
+	<ul id="symList">
 	{% for obj in the_list.0 %}
 		{% if obj.equation.id = the_list.1.id %}
-			<li><a href="{% url 'symDetail' obj.symbol.id %}">${{ obj.symbol.symbol }}$</a></li>
+			<li id="link" data-sym="{{ obj.symbol.id }}">${{ obj.symbol.symbol }}$</li>
 		{% endif %}
 	{% endfor %}
 	</ul>
@@ -19,10 +19,11 @@ MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 {% endif %}
 <h2>Relevant Exercises</h2>
 {% if the_list.2 %}
-	<ul>
+	<!--link not working--!>
+	<ul id="exList">
 	{% for obj in the_list.2 %}
 		{% if obj.eqn.id = the_list.1.id %}
-			<li><a href="{% url 'excDetail' obj.exc.id %}">${{ obj.exc.title }}$</a></li>
+			<li id="link" data-ex="{{ obj.exc.id }}">${{ obj.exc.title }}$</li>
 		{% endif %}
 	{% endfor %}
 	</ul>
@@ -34,13 +35,39 @@ MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 	{% for obj in the_list.0 %}
 		{% if obj.equation.id = the_list.1.id %}
 			<li><h3>${{ obj.symbol.symbol }}$</h3></li>
-			<ul>
+			<ul id="eqList">
 			{% for eqn in the_list.0 %}
 				{% if eqn.symbol.id = obj.symbol.id %}
-					<li><a href="{% url 'eqnDetail' eqn.equation.id %}">${{ eqn.equation.latex }}$</a></li>
+					<li data-eq="{{ eqn.equation.id }}">${{ eqn.equation.latex }}$</li>
 				{% endif %}
 			{% endfor %}
 			</ul>
 		{% endif %}
 	{% endfor %}
 	</ul>
+
+
+<script src="{{ STATIC_URL }}per/js/jquery.js"></script>
+<script>
+	$(document).ready(function(){
+	  $('#symList li').on('click', function() {
+		$.get( "/symbols/"+$(this).data("sym"), function (data) {
+		  $("#content").html(data);
+		});  
+	  }); 
+	});
+	$(document).ready(function(){
+	  $('#eqList li').on('click', function() {
+		$.get( "/equations/"+$(this).data("eq"), function (data) {
+		  $("#content").html(data);
+		});  
+	  }); 
+	});
+	$(document).ready(function(){
+	  $('#exList li').on('click', function() {
+		$.get( "/exercises/"+$(this).data("ex"), function (data) {
+		  $("#content").html(data);
+		});  
+	  }); 
+	});
+</script>

@@ -39,11 +39,7 @@
 	<script src="{{ STATIC_URL }}per/js/jquery.js"></script>
 	<script>
 		$(document).ready(function(){
-<<<<<<< HEAD
-		  $('li').on('click', function() {
-=======
           $('#navList li').on('click', function() {
->>>>>>> FETCH_HEAD
             $.get( "/symbols/"+$(this).data("sym"), function (data) {
               $("#content").html(data);
             });  

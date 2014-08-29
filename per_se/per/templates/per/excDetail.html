@@ -13,10 +13,10 @@ no image
 </li>
 <h2>Relevant Equations</h2>
 {% if the_list.0 %}
-	<ul>
+	<ul id="eqList">
 	{% for obj in the_list.0 %}
 		{% if obj.exc.id = the_list.1.id %}
-			<li><a href="{% url 'eqnDetail' obj.eqn.id %}">${{ obj.eqn.latex }}$</a></li>
+			<li data-eq="{{ obj.eqn.id }}">${{ obj.eqn.latex }}$</li>
 		{% endif %}
 	{% endfor %}
 	</ul>
@@ -25,11 +25,11 @@ no image
 {% endif %}
 <h2>Given Symbols</h2>
 {% if the_list.2 %}
-	<ul>
+	<ul id="symList">
 	{% for obj in the_list.2 %}
 		{% if obj.exc.id = the_list.1.id %}
 			{% if obj.type = 0 %}
-				<li><a href="{% url 'symDetail' obj.symbol.id %}">${{ obj.symbol.symbol }}$</a></li>
+				<li data-sym="{{ obj.symbol.id }}">${{ obj.symbol.symbol }}$</li>
 			{% endif %}
 		{% endif %}
 	{% endfor %}
@@ -39,11 +39,11 @@ no image
 {% endif %}
 <h2>Hidden Symbols</h2>
 {% if the_list.2 %}
-	<ul>
+	<ul id="symList">
 	{% for obj in the_list.2 %}
 		{% if obj.exc.id = the_list.1.id %}
 			{% if obj.type = 1 %}
-				<li><a href="{% url 'symDetail' obj.symbol.id %}">${{ obj.symbol.symbol }}$</a></li>
+				<li data-sym="{{ obj.symbol.id }}">${{ obj.symbol.symbol }}$</li>
 			{% endif %}
 		{% endif %}
 	{% endfor %}
@@ -53,11 +53,11 @@ no image
 {% endif %}
 <h2>Find Symbols</h2>
 {% if the_list.2 %}
-	<ul>
+	<ul id="symList">
 	{% for obj in the_list.2 %}
 		{% if obj.exc.id = the_list.1.id %}
 			{% if obj.type = 2 %}
-				<li><a href="{% url 'symDetail' obj.symbol.id %}">${{ obj.symbol.symbol }}$</a></li>
+				<li data-sym="{{ obj.symbol.id }}">${{ obj.symbol.symbol }}$</li>
 			{% endif %}
 		{% endif %}
 	{% endfor %}
@@ -65,3 +65,21 @@ no image
 {% else %}
 	<p>No symbols are asked for</p>
 {% endif %}
+
+<script src="{{ STATIC_URL }}per/js/jquery.js"></script>
+<script>
+	$(document).ready(function(){
+	  $('#symList li').on('click', function() {
+		$.get( "/symbols/"+$(this).data("sym"), function (data) {
+		  $("#content").html(data);
+		});  
+	  }); 
+	});
+	$(document).ready(function(){
+	  $('#eqList li').on('click', function() {
+		$.get( "/equations/"+$(this).data("eq"), function (data) {
+		  $("#content").html(data);
+		});  
+	  }); 
+	});
+</script>
