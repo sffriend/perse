@@ -4,7 +4,7 @@ MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 
 <h1>{{ the_list.1.title }}</h1>
 {{ the_list.1.text|linebreaks }}
-{% if the_list.1.img == "none" %}
+{% if the_list.1.img != "none" and the_list.1.img != "None"%}
 image goes here
 {% else %}
 no image
