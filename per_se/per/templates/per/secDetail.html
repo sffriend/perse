@@ -16,20 +16,15 @@ MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 	<p>No equations are available.</p>
 {% endif %}
 <h2>Problems</h2>
-<form action="{% url 'excListResults' %}" choice method="post">
-{% csrf_token %}
-	{% if the_list.2 %}<ul id="exList">
+	{% if the_list.2 %}
 		{% for exc in the_list.2 %}
 			{% if exc.sec.id = the_list.1.id %}
 				<li><div id="link" data-ex="{{ exc.id }}">${{ exc.title }}$</div><div id="checkbox"><input type="checkbox" name="choice[]" value={{ exc.id }}></div></li>
 			{% endif %}
 		{% endfor %}
-		</ul>
 	{% else %}
 		<p>No exercises are available.</p>
 	{% endif %}
-	<input type="submit" value="submit" />
-</form>
 
 <script src="{{ STATIC_URL }}per/js/jquery.js"></script>
 <script>
