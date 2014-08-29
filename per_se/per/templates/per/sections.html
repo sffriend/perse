@@ -65,7 +65,9 @@
 			}
 			else
 			{
-				 $( "#"+secid ).remove();
+				 $( "#"+secid ).slideUp(200, function(){
+				 	$( this ).remove();
+				 });
 			}
             $( this ).toggleClass("highlight");
           }); 
