@@ -37,6 +37,15 @@ class Exercise(models.Model):
 		ordering = ('title',)
 	def __unicode__(self):
 		return self.title
+		
+class Image(models.Model):
+	exc = models.ForeignKey(Exercise)
+	title = models.CharField(max_length = 100)
+	image = models.ImageField(upload_to="per/static/per/images", null=True)
+	class Meta:
+		ordering = ('title',)
+	def __unicode__(self):
+		return self.title
 
 class Tag(models.Model):
 	name = models.CharField(max_length=100)
