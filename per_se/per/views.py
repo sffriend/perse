@@ -3,7 +3,7 @@ from itertools import chain
 from collections import defaultdict
 from django.http import HttpResponse
 from django.template import RequestContext, loader
-from per.models import Symbol, Equation, SymbolEquation, Exercise, Tag, Section, SectionEqn, SectionSym, TagLink, ExcEqn, ExcSym, SectionExc
+from per.models import Symbol, Equation, SymbolEquation, Exercise, Image, Tag, Section, SectionEqn, SectionSym, TagLink, ExcEqn, ExcSym, SectionExc
 import json
 # Create your views here.
 
@@ -66,7 +66,8 @@ def excDetail(request, per_id):
 	exc = get_object_or_404(Exercise, pk=per_id)
 	link_list = ExcEqn.objects.order_by('id')
 	symbols = ExcSym.objects.order_by('id')
-	the_list = [link_list, exc, symbols]
+	images = Image.objects.order_by('id')
+	the_list = [link_list, exc, symbols, images]
 	context = {'the_list' : the_list}
 	return render(request, 'per/excDetail.html', context)
 
