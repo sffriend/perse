@@ -63,9 +63,13 @@ class ExcTag(admin.TabularInline):
 	model = TagLink
 	extra = 2
 
+class ExcImg(admin.TabularInline):
+	model = Image
+	extra = 1
+
 class ExerciseAdmin(admin.ModelAdmin):
 	list_display = ( 'sec', 'title' )
-	inlines = [ExcEqnChoice, ExcSymChoice, ExcTag]
+	inlines = [ExcImg, ExcEqnChoice, ExcSymChoice, ExcTag]
     
 '''
 class SymbolAdmin(admin.ModelAdmin):
