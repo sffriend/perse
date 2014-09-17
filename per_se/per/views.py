@@ -75,7 +75,17 @@ def exclist(request):
     exc_list = Exercise.objects.order_by('title')
     link_list = ExcEqn.objects.order_by('id')
     symbols = ExcSym.objects.order_by('id')
-    the_list = [link_list, exc_list, symbols]
+    sym_dict = {}
+    for sym in symbols:
+		if sym.symbol not in sym_dict:
+			sym_dict[sym.symbol] = [0, 0, 0]
+		if sym.type == 0:
+			sym_dict[sym.symbol][0] += 1
+		elif sym.type == 1:
+			sym_dict[sym.symbol][1] += 1
+		elif sym.type == 2:
+			sym_dict[sym.symbol][2] += 1
+    the_list = [link_list, exc_list, symbols, sym_dict]
     context = {'the_list' : the_list}
     return render(request, 'per/testeqn.html', context)
 
