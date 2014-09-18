@@ -4,11 +4,11 @@ MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 
 <h1>{{ the_list.1.title }}</h1>
 {{ the_list.1.text|linebreaks }}
-{% if the_list.1.img != "none" and the_list.1.img != "None"%}
-<img src="{{ STATIC_URL }}per/images/{{ the_list.1.img }}">
-{% else %}
-no image
-{% endif %}
+{% for img in the_list.3%}
+	{% if img.exc.id = the_list.1.id %}
+		<img src="{{ MEDIA_URL }}{{ img.image.url|slice:'7:' }}">
+	{% endif %}
+{% endfor %}
 <h2>Relevant Equations</h2>
 {% if the_list.0 %}
 	<ul id="eqList">

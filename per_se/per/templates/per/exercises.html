@@ -7,26 +7,27 @@
     	tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
   	});
 	</script>
+	{% load staticfiles %}
 	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}per/css/btn.css">
 	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}per/css/global.css">
-	{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}per/css/dashboard.css">
 	<script type="text/javascript" src="{{ STATIC_URL }}per/MathJax-2.4-latest/MathJax.js?config=TeX-AMS_HTML-full"></script>
 	</head>
 	<body>
+	<div id="list">
 	<div id = "buttons" style="height:50px;">
-	<center>
 	<a href="/symbols" class="btn"><span>Symbols</span></a>
 	<a href="/equations" class="btn"><span>Equations</span></a>
 	<a href="/sections" class="btn"><span>Sections</span></a>
 	<a href="/exercises" class="btn"><span>Exercises</span></a>
-	</center>
 	</div>
-	<div id="list">
 		{% if exc_list %}
     		<ul id = "navList">
     		<h1>Exercises</h1>
     		{% for exc in exc_list %}
-    			<li data-sym="{{ exc.id }}">{{ exc.title }}</li>
+    			<li data-sym="{{ exc.id }}">{{ exc.title }}
+    			
+    			</li>
 		    {% endfor %}
     		</ul>
 		{% else %}

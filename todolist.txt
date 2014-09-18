@@ -1,3 +1,3 @@
-get pictures for excs working
+nodes and stuff
 
-relevant symbols not working for eqnDetail
+tiny pie diagrams next to exercises

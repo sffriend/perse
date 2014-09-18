@@ -1,0 +1,36 @@
+path {  stroke: #DDD; }
+path:hover {  opacity:0.9; }
+rect:hover {  fill:#444; }
+.legend tr{    border-bottom:1px solid grey; }
+.legend tr:first-child{    border-top:1px solid grey; }
+
+.axis path,
+.axis {
+  font: 10px arial;
+}
+.axis line {
+  fill: none;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {  display: none; }
+.legend{
+	margin-bottom:76px;
+	display:inline-block;
+	border-collapse: collapse;
+	border-spacing: 0px;
+}
+.legend td{
+	padding:4px 5px;
+	vertical-align:bottom;
+}
+.legendFreq, .legendPerc{
+	align:right;
+	width:50px;
+}
+
+.chord path {
+  fill-opacity: .67;
+  stroke: #111;
+  stroke-width: .5px;
+}

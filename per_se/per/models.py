@@ -1,6 +1,16 @@
 from django.db import models
 
 # models
+
+"""
+Symbol model containing:
+id - an int (by default, not shown here, added automatically)
+symbol - a charfield for the symbol LaTeX
+name - a charfield for the name of the symbol
+constant - a boolean determining whether or not it's a constant
+Meta class orders it by name when displayed in the admin page
+__unicode__(self) is what is displayed in the admin page, in this case name:symbol
+"""
 class Symbol(models.Model):
     symbol = models.CharField(max_length=50)
     name = models.CharField(max_length=100)
@@ -10,6 +20,14 @@ class Symbol(models.Model):
     def __unicode__(self):
     	return self.name + " : " + self.symbol
 
+"""
+Equation model containing:
+id - an int (by default, not shown here, added automatically)
+latex - a charfield for the equation LaTeX
+name - a charfield for the name of the equation, should be section-number
+Meta class orders it by name when displayed in the admin page
+__unicode__(self) is what is displayed in the admin page, in this case name
+"""
 class Equation(models.Model):
     latex = models.CharField(max_length=500)
     name = models.CharField(max_length=150)
@@ -17,7 +35,15 @@ class Equation(models.Model):
     	ordering = ('name',)
     def __unicode__(self):
     	return self.name
-    	
+
+"""
+Section model containing:
+id - an int (by default, not shown here, added automatically)
+name - a charfield for the name of the equation, should be section-number
+ch_num - intfield, chapter number
+Meta class orders it by chapter number when displayed in the admin page
+__unicode__(self) is what is displayed in the admin page, in this case name
+"""
 class Section(models.Model):
 	name = models.CharField(max_length=100)
 	ch_num = models.IntegerField()
@@ -26,6 +52,14 @@ class Section(models.Model):
 	def __unicode__(self):
 		return self.name
 
+"""
+Exercise model containing:
+id - an int (by default, not shown here, added automatically)
+latex - a charfield for the equation LaTeX
+name - a charfield for the name of the equation, should be section-number
+Meta class orders it by name when displayed in the admin page
+__unicode__(self) is what is displayed in the admin page, in this case name
+"""
 class Exercise(models.Model):
 	sec = models.ForeignKey(Section)
 	text = models.TextField()
@@ -33,6 +67,23 @@ class Exercise(models.Model):
 	title = models.CharField(max_length = 100)
 	conceptual = models.BooleanField(default = False)
 	calculus = models.BooleanField(default = False)
+	class Meta:
+		ordering = ('title',)
+	def __unicode__(self):
+		return self.title
+
+"""
+Equation model containing:
+id - an int (by default, not shown here, added automatically)
+latex - a charfield for the equation LaTeX
+name - a charfield for the name of the equation, should be section-number
+Meta class orders it by name when displayed in the admin page
+__unicode__(self) is what is displayed in the admin page, in this case name
+"""
+class Image(models.Model):
+	exc = models.ForeignKey(Exercise)
+	title = models.CharField(max_length = 100)
+	image = models.ImageField(upload_to="per/static/per/images", null=True)
 	class Meta:
 		ordering = ('title',)
 	def __unicode__(self):

@@ -1,13 +1,5 @@
-
-.btn {		
+.btn {
   display: inline-block;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;
-  -webkit-transition: -webkit-box-shadow .2s ease-in-out;
-  -moz-transition: -moz-box-shadow .2s ease-in-out;
-  -o-transition: -o-box-shadow .2s ease-in-out;
-  transition: box-shadow .2s ease-in-out;
 }
 
 .btn span {	

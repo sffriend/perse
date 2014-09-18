@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from per.models import Symbol, Equation, SymbolEquation, Exercise, Tag, Section, SectionEqn, SectionSym, TagLink, ExcEqn, ExcSym
+from per.models import Symbol, Equation, SymbolEquation, Exercise, Tag, Image, Section, SectionEqn, SectionSym, TagLink, ExcEqn, ExcSym
 
 class SymEqChoice(admin.TabularInline):
 	model = SymbolEquation
@@ -18,13 +18,20 @@ class SymbolAdmin(admin.ModelAdmin):
 	search_fields = ['name']
 
 class EquationAdmin(admin.ModelAdmin):
-        fieldsets = [
-                ('LaTeX form',  {'fields': ['latex']}),
-                ('Eqn. name', {'fields': ['name']}),
-        ]
+	fieldsets = [
+			('LaTeX form',  {'fields': ['latex']}),
+			('Eqn. name', {'fields': ['name']}),
+	]
 	inlines = [SymEqChoice]
 	list_display = ( 'latex', 'name' )
 	search_fields = ['name']
+
+class ImageAdmin(admin.ModelAdmin):
+	fieldsets = [
+			('Title',  {'fields': ['title']}),
+	]
+	list_display = ( 'title' )
+	search_fields = ['title']
 
 class SecSym(admin.TabularInline):
 	model = SectionSym
@@ -56,9 +63,13 @@ class ExcTag(admin.TabularInline):
 	model = TagLink
 	extra = 2
 
+class ExcImg(admin.TabularInline):
+	model = Image
+	extra = 1
+
 class ExerciseAdmin(admin.ModelAdmin):
 	list_display = ( 'sec', 'title' )
-	inlines = [ExcEqnChoice, ExcSymChoice, ExcTag]
+	inlines = [ExcImg, ExcEqnChoice, ExcSymChoice, ExcTag]
     
 '''
 class SymbolAdmin(admin.ModelAdmin):
@@ -69,4 +80,5 @@ admin.site.register(Equation, EquationAdmin)
 admin.site.register(Exercise, ExerciseAdmin)
 admin.site.register(Tag)
 admin.site.register(Section, SectionAdmin)
+admin.site.register(Image)
 #admin.site.register(SymbolEquation)
