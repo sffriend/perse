@@ -16,36 +16,43 @@ def index(request):
     return render(request, 'per/index.html', context)
 '''
 
+#main index page
 def index(request):
 	return render(request, 'per/index.html')
-	
+
+#symbols page	
 def symbols(request):
     symbol_list = Symbol.objects.order_by('name')
     context = {'symbol_list': symbol_list}
     return render(request, 'per/symbols.html', context)
 	
+#equations page
 def equations(request):
     eqn_list = Equation.objects.order_by('name')
     context = {'eqn_list': eqn_list}
     return render(request, 'per/equations.html', context)
 
+#sections page
 def sections(request):
     sec_list = Section.objects.order_by('ch_num')
     context = {'sec_list': sec_list}
     return render(request, 'per/sections.html', context)
 
+#exercises page
 def exercises(request):
     exc_list = Exercise.objects.order_by('title')
     context = {'exc_list': exc_list}
     return render(request, 'per/exercises.html', context)
 
+#individual symbol page showing details
 def symDetail(request, per_id):
 	symbol = get_object_or_404(Symbol, pk=per_id)
 	link_list = SymbolEquation.objects.order_by('id')
 	the_list = [link_list, symbol]
 	context = {'the_list' : the_list}
 	return render(request, 'per/symDetail.html', context)
-	
+
+#individual equation page showing details
 def eqnDetail(request, per_id):
 	equation = get_object_or_404(Equation, pk=per_id)
 	link_list = SymbolEquation.objects.order_by('id')
@@ -54,6 +61,7 @@ def eqnDetail(request, per_id):
 	context = {'the_list' : the_list}
 	return render(request, 'per/eqnDetail.html', context)
 
+#individual section page showing details
 def secDetail(request, per_id):
 	section = get_object_or_404(Section, pk=per_id)
 	eqn_list = SectionEqn.objects.order_by('id')
@@ -62,6 +70,7 @@ def secDetail(request, per_id):
 	context = {'the_list' : the_list}
 	return render(request, 'per/secDetail.html', context)
 
+#individual exercise page showing details
 def excDetail(request, per_id):
 	exc = get_object_or_404(Exercise, pk=per_id)
 	link_list = ExcEqn.objects.order_by('id')
@@ -71,6 +80,8 @@ def excDetail(request, per_id):
 	context = {'the_list' : the_list}
 	return render(request, 'per/excDetail.html', context)
 
+#After selecting sections on the section page, there's a list of exercises, submit will take you to this page
+#the for loop sorts the symbols in each exercise by given, hidden, and find and pushes it into a diction corresponding to each exercise
 def exclist(request):
     exc_list = Exercise.objects.order_by('title')
     link_list = ExcEqn.objects.order_by('id')
@@ -89,6 +100,8 @@ def exclist(request):
     context = {'the_list' : the_list}
     return render(request, 'per/testeqn.html', context)
 
+#no longer used, it was something I used to make sure selecting exercises and seeing the dashboard output worked
+#now it's used for all exercises on the index
 def SecExc(request):
 	idlist = request.POST.getlist('choice[]')
 	exercises = Exercise.objects.order_by('title')
@@ -101,6 +114,7 @@ def SecExc(request):
 	context = {'the_list' : the_list}
 	return render(request, 'per/SecExcList.html', context)
 
+#the results of selecting exercises, works more or less the same as exclist, except this one takes a pushed list of exercise id numbers for processing
 def listResults(request):
 	exclist = []
 	idlist = request.POST.getlist('choice[]')

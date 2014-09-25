@@ -73,12 +73,12 @@ class Exercise(models.Model):
 		return self.title
 
 """
-Equation model containing:
+Image model containing:
 id - an int (by default, not shown here, added automatically)
-latex - a charfield for the equation LaTeX
-name - a charfield for the name of the equation, should be section-number
-Meta class orders it by name when displayed in the admin page
-__unicode__(self) is what is displayed in the admin page, in this case name
+exc - a field for an exercise model that the image is associated with
+title - name of he image or something, purely for sorting purposes
+Meta class orders it by title when displayed in the admin page
+__unicode__(self) is what is displayed in the admin page, in this case title
 """
 class Image(models.Model):
 	exc = models.ForeignKey(Exercise)
@@ -89,12 +89,20 @@ class Image(models.Model):
 	def __unicode__(self):
 		return self.title
 
+"""
+Tag model containing:
+id - an int (by default, not shown here, added automatically)
+name - a charfield for the name of the tag
+Meta class orders it by name when displayed in the admin page
+__unicode__(self) is what is displayed in the admin page, in this case name
+"""
 class Tag(models.Model):
 	name = models.CharField(max_length=100)
 	def __unicode__(self):
 		return self.name
 		
-#Linking Tabels
+#Linking Tables
+"""Linking tables link two tables of models together, should be fairly self-explanatory"""
 
 #Link symbols and equations
 class SymbolEquation(models.Model):

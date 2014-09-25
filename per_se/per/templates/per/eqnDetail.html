@@ -1,6 +1,9 @@
 <script>
 MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 </script>
+<div id = "buttons" style="height:50px;">
+<a class="btn"><span>Equations</span></a>
+</div>
 <h1>{{ the_list.1.name }}</h1>
 <ul>
 	<li>${{ the_list.1.latex }}$</li>
@@ -19,7 +22,6 @@ MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 {% endif %}
 <h2>Relevant Exercises</h2>
 {% if the_list.2 %}
-	<!--link not working--!>
 	<ul id="exList">
 	{% for obj in the_list.2 %}
 		{% if obj.eqn.id = the_list.1.id %}
