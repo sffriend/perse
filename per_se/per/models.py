@@ -34,7 +34,7 @@ class Equation(models.Model):
     class Meta:
     	ordering = ('name',)
     def __unicode__(self):
-    	return self.name
+    	return self.name + " : " + self.latex
 
 """
 Section model containing:
